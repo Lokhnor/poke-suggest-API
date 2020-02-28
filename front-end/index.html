@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="search-bar">
+      <input type="text" id="search-pokemon" />
+    </div>
+
+    <div id="pokemon-circle">
+      <img id="pkmn-img" />
+    </div>
+
+    <img
+      id="pkmn-logo"
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1920px-International_Pok%C3%A9mon_logo.svg.png"
+    />
+    <script>
+      const search = document.getElementById("search-pokemon");
+      search.addEventListener("input", getPokemon);
+
+      function getPokemon(event) {
+        fetch(`http://localhost:5000/pokemon?name=${event.target.value}`)
+          .then(response => {
+            return response.json();
+          })
+          .then(myJson => {
+            console.log(myJson);
+            document.getElementById("pkmn-img").src = myJson.img_url;
+          });
+      }
+    </script>
+  </body>
+</html>
